@@ -56,6 +56,40 @@ public class Test8 {
     }
 
     @Test
+    @DisplayName("Ещё один тест с нормальными значениями (false)")
+    void testNormalFalse2(){
+        int[][] board = {
+            {0, 0, 0, 1, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 1, 0, 0, 0, 1, 0, 0},
+            {0, 0, 0, 0, 1, 0, 1, 0},
+            {0, 1, 0, 0, 0, 1, 0, 0},
+            {0, 0, 0, 1, 0, 0, 0, 0},
+            {0, 1, 0, 0, 0, 0, 0, 1},
+            {0, 0, 0, 0, 1, 0, 0, 0}
+        };
+        boolean result = (Task8.knightBoardCapture(board));
+        assertThat(result).isFalse();
+    }
+
+    @Test
+    @DisplayName("Ещё один тест с нормальными значениями(true)")
+    void testNormalTrue2(){
+        int[][] board = {
+            {0, 1, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 1, 0, 0},
+            {0, 0, 0, 0, 1, 0, 1, 0},
+            {0, 1, 0, 0, 0, 1, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 1, 0, 0, 0, 0, 0, 1},
+            {0, 0, 0, 0, 1, 0, 0, 0}
+        };
+        boolean result = Task8.knightBoardCapture(board);
+        assertThat(result).isTrue();
+    }
+
+    @Test
     @DisplayName("Тест с маленькой доской")
     void testInvalidBoard() {
         int[][] board = {
