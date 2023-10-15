@@ -10,11 +10,7 @@ public final class Task8 {
     private static final int LONG_MOVE = 2; //  ...и на две по противоположной
 
     private static boolean canBeSlained(int x, int y, int[][] board) {
-        try {
-            return (x >= 0 && y >= 0 && x < BOARD_SIZE && y < BOARD_SIZE && board[x][y] == 1);
-        } catch (IndexOutOfBoundsException e) {
-            return false;
-        }
+        return (x >= 0 && y >= 0 && x < BOARD_SIZE && y < BOARD_SIZE && board[x][y] == 1);
     }
 
     private static boolean canSlain(int x, int y, int[][] board) {
