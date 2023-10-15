@@ -3,42 +3,41 @@ package edu.hw1;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.assertj.core.api.AssertionsForClassTypes.in;
 
-public class test3 {
+public class Test3 {
     @Test
     @DisplayName("[1, 2, 3, 4], [0, 6] --> true")
-    void testOnTrue(){
+    void testOnTrue() {
         long[] internal = {1, 2, 3, 4};
         long[] external = {0, 6};
-        boolean result = task3.isNestable(internal, external);
+        boolean result = Task3.isNestable(internal, external);
         assertThat(result).isTrue();
     }
 
     @Test
     @DisplayName("[9, 9, 8], [8, 9] --> false")
-    void testOnFalse(){
+    void testOnFalse() {
         long[] internal = {9, 9, 8};
         long[] external = {8, 9};
-        boolean result = task3.isNestable(internal, external);
+        boolean result = Task3.isNestable(internal, external);
         assertThat(result).isFalse();
     }
 
     @Test
     @DisplayName("[3, 1], [4, 0] --> true")
-    void testOnTrue2(){
+    void testOnTrue2() {
         long[] internal = {3, 1};
         long[] external = {4, 0};
-        boolean result = task3.isNestable(internal, external);
+        boolean result = Task3.isNestable(internal, external);
         assertThat(result).isTrue();
     }
 
     @Test
     @DisplayName("[1, 2, 3, 4], [2, 3] --> false")
-    void testOnFalse2(){
+    void testOnFalse2() {
         long[] internal = {1, 2, 3, 4};
         long[] external = {2, 3};
-        boolean result = task3.isNestable(internal, external);
+        boolean result = Task3.isNestable(internal, external);
         assertThat(result).isFalse();
     }
 
@@ -47,7 +46,7 @@ public class test3 {
     void testWithEmpty(){
         long[] internal = null;
         long[] external = {};
-        boolean result = task3.isNestable(internal, external);
+        boolean result = Task3.isNestable(internal, external);
         assertThat(result).isFalse();
     }
 }

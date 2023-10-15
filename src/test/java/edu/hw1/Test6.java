@@ -5,7 +5,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-public class test6 {
+public class Test6 {
     @ParameterizedTest(name="Число: {0}, Верный ответ - {1}")
     @DisplayName("Тесты с нормальными значениями")
     @CsvSource({
@@ -14,8 +14,8 @@ public class test6 {
         "6554, 4",
         "1234, 3"
     })
-    void testNormal(long input, int answer){
-        int result = task6.kaprekar(input);
+    void testNormal(long input, int answer) {
+        int result = Task6.kaprekar(input);
         assertThat(result).isEqualTo(answer);
     }
 
@@ -26,8 +26,8 @@ public class test6 {
         "123, -1",
         "0, -1"
     })
-    void testInvalid(long input, int answer){
-        int result = task6.kaprekar(input);
+    void testInvalid(long input, int answer) {
+        int result = Task6.kaprekar(input);
         assertThat(result).isEqualTo(answer);
     }
 }

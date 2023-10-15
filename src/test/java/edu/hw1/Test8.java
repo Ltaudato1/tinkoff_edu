@@ -4,10 +4,10 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-public class test8 {
+public class Test8 {
     @Test
     @DisplayName("Тест с корректными данными (true)")
-    void testNormalTrue(){
+    void testNormalTrue() {
         int[][] board = {
             {0, 0, 0, 1, 0, 0, 0, 0},
             {0, 0, 0, 0, 0, 0, 0, 0},
@@ -18,12 +18,12 @@ public class test8 {
             {0, 1, 0, 0, 0, 0, 0, 1},
             {0, 0, 0, 0, 1, 0, 0, 0}
         };
-        boolean result = task8.knightBoardCapture(board);
+        boolean result = Task8.knightBoardCapture(board);
         assertThat(result).isTrue();
     }
     @Test
     @DisplayName("Тест с корректными данными (false)")
-    void testNormalFalse(){
+    void testNormalFalse() {
         int[][] board = {
             {0, 0, 0, 0, 1, 0, 0, 0},
             {0, 0, 0, 0, 0, 1, 0, 0},
@@ -34,13 +34,13 @@ public class test8 {
             {0, 0, 0, 0, 0, 1, 0, 0},
             {1, 0, 0, 0, 0, 0, 0, 0}
         };
-        boolean result = task8.knightBoardCapture(board);
+        boolean result = Task8.knightBoardCapture(board);
         assertThat(result).isFalse();
     }
 
     @Test
     @DisplayName("Тест с конями, стоящими там, где их поле поражение ограничено 2-3 клетками (true)")
-    void testTrickyHorses(){
+    void testTrickyHorses() {
         int[][] board = {
             {1, 0, 0, 0, 0, 0, 0, 1},
             {0, 1, 0, 0, 0, 0, 1, 0},
@@ -51,7 +51,7 @@ public class test8 {
             {0, 1, 0, 0, 0, 0, 1, 0},
             {1, 0, 0, 0, 0, 0, 0, 1}
         };
-        boolean result = task8.knightBoardCapture(board);
+        boolean result = Task8.knightBoardCapture(board);
         assertThat(result).isTrue();
     }
 

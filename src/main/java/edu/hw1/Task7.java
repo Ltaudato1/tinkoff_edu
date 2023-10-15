@@ -1,6 +1,10 @@
 package edu.hw1;
 
-public final class task7 {
+public final class Task7 {
+    private Task7() {
+
+    }
+
     public static int rotateLeft(int n, int shift) {
         if (shift < 0 || n < 0) {
             return -1;

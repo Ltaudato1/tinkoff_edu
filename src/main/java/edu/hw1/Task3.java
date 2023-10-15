@@ -2,9 +2,13 @@ package edu.hw1;
 
 import java.util.Arrays;
 
-public final class task3 {
-    public static boolean isNestable(long[] internal, long[] external){
-        if (internal == null || internal.length == 0 || external.length == 0 || external == null){
+public final class Task3 {
+    private Task3() {
+
+    }
+
+    public static boolean isNestable(long[] internal, long[] external) {
+        if (internal == null || internal.length == 0 || external.length == 0 || external == null) {
             return false;
         }
         long internalMax = Arrays.stream(internal).max().getAsLong(); // Получаем минимумы и максимумы

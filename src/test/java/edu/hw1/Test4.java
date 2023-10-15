@@ -1,14 +1,12 @@
 package edu.hw1;
 
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class test4 {
+public class Test4 {
     @ParameterizedTest(name="Строка: {0}, Верный ответ - {1}")
     @CsvSource({
         "оПомигети псаривьтс ртко!и, Помогите исправить строки!",
@@ -17,16 +15,16 @@ public class test4 {
         "badce, abcde",
     })
     @DisplayName("Тест task4.fixString с нормальными значениями")
-    void testFixString(String input, String answer){
-        String result = task4.fixString(input);
+    void testFixString(String input, String answer) {
+        String result = Task4.fixString(input);
         assertThat(result).isEqualTo(answer);
     }
 
     @ParameterizedTest(name="Строка: {0}, верный ответ - пустая строка")
     @DisplayName("Тест task4.fixString c пустыми строками")
     @NullAndEmptySource
-    void testWithEmptyString(String input){
-        String result = task4.fixString(input);
+    void testWithEmptyString(String input) {
+        String result = Task4.fixString(input);
         assertThat(result).isBlank();
     }
 }
