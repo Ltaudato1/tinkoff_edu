@@ -5,9 +5,10 @@ public final class Task2 {
 
     }
 
+    private static final int DIV_TO_REMOVE_NUMBER = 10;
+
     public static int countDigits(long number) {
         long num = number;
-        final int DIV_TO_REMOVE_NUMBER = 10; // При делении нацело на 10 убирается последняя цифра
         int counter = 1;
         while (num >= DIV_TO_REMOVE_NUMBER || num <= -DIV_TO_REMOVE_NUMBER) {
             counter++;
