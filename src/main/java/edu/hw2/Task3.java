@@ -88,10 +88,10 @@ public class Task3 {
         public void tryExecute(String command) {
 
             for (int i = 0; i < maxAttempts; ++i) {
-                try {
-                    manager.getConnection().execute(command, this.probability);
+                try (Connection connection = manager.getConnection()) {
+                    connection.execute(command, this.probability);
                     return;
-                } catch (ConnectionException e) {
+                } catch (Exception e) {
                     continue;
                 }
             }
