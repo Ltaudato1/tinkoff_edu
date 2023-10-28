@@ -1,7 +1,9 @@
 package edu.project1;
 
 import static org.junit.jupiter.api.Assertions.*;
+import edu.project1.Game.GameIsOverException;
 import edu.project1.Game.GameSession;
+import edu.project1.Game.Player;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -11,21 +13,21 @@ import java.util.stream.Stream;
 
 class TestProject1 {
 
-    @org.junit.jupiter.api.Test
+    @Test
     @DisplayName("Sample test (to loose)")
     void sampleTest() {
         String[] simulatedInput = {"u\n", "v\n", "c\n", "j\n", "d\n"};
         ByteArrayInputStream originalSystemIn = new ByteArrayInputStream("".getBytes());
         System.setIn(originalSystemIn);
 
-        GameSession.Game game = null;
+        GameSession game = null;
         try {
-            game = new GameSession.Game();
-        } catch(GameSession.GameIsOverException e) {
+            game = new GameSession();
+        } catch(GameIsOverException e) {
             fail();
         }
         game.hangmanWord.createNewWord();
-        GameSession.Player player = new GameSession.Player();
+        Player player = new Player();
 
         for (int i = 0; i < 5; ++i) {
             ByteArrayInputStream inputStream = new ByteArrayInputStream(simulatedInput[i].getBytes());
@@ -40,23 +42,25 @@ class TestProject1 {
         System.setIn(originalSystemIn);
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     @DisplayName("Sample test (to win)")
     void testForWin() {
-        String[] simulatedInput = {"t\n", "i\n", "n\n", "k\n", "o\n", "f\n"};
+        String[] simulatedInput = {"m\n", "a\n", "n\n", "g\n", "e\n", "r\n"};
         ByteArrayInputStream originalSystemIn = new ByteArrayInputStream("".getBytes());
         System.setIn(originalSystemIn);
 
-        GameSession.Game game = null;
+        GameSession game = null;
         try {
-            game = new GameSession.Game("tinkoff");
-        } catch (GameSession.GameIsOverException e) {
+            game = new GameSession("manager");
+        } catch (GameIsOverException e) {
             fail("Invalid word");
         }
-        GameSession.Player player = new GameSession.Player();
+        Player player = new Player();
+
+        ByteArrayInputStream inputStream;
 
         for (int i = 0; i < 6; ++i) {
-            ByteArrayInputStream inputStream = new ByteArrayInputStream(simulatedInput[i].getBytes());
+            inputStream = new ByteArrayInputStream(simulatedInput[i].getBytes());
             System.setIn(inputStream);
 
             game.playTurn(player);
@@ -69,13 +73,14 @@ class TestProject1 {
         System.setIn(originalSystemIn);
     }
 
+
     @Test
     @DisplayName("Test with null as word")
     void testNullWord() {
         try {
-            new GameSession.Game(null);
+            new GameSession(null);
             fail();
-        } catch (GameSession.GameIsOverException e) {
+        } catch (GameIsOverException e) {
             return;
         }
     }
@@ -84,9 +89,9 @@ class TestProject1 {
     @DisplayName("Test with invalid word")
     void testInvalidWord() {
         try {
-            new GameSession.Game("");
+            new GameSession("");
             fail();
-        } catch (GameSession.GameIsOverException e) {
+        } catch (GameIsOverException e) {
             return;
         }
     }
@@ -98,13 +103,13 @@ class TestProject1 {
         ByteArrayInputStream originalSystemIn = new ByteArrayInputStream("".getBytes());
         System.setIn(originalSystemIn);
 
-        GameSession.Game game = null;
+        GameSession game = null;
         try {
-            game = new GameSession.Game("tinkoff");
-        } catch (GameSession.GameIsOverException e) {
+            game = new GameSession("tinkoff");
+        } catch (GameIsOverException e) {
             fail("Invalid word");
         }
-        GameSession.Player player = new GameSession.Player();
+        Player player = new Player();
 
         ByteArrayInputStream inputStream = new ByteArrayInputStream(simulatedInput[0].getBytes());
         System.setIn(inputStream);
@@ -131,13 +136,13 @@ class TestProject1 {
         ByteArrayInputStream originalSystemIn = new ByteArrayInputStream("".getBytes());
         System.setIn(originalSystemIn);
 
-        GameSession.Game game = null;
+        GameSession game = null;
         try {
-            game = new GameSession.Game("tinkoff");
-        } catch (GameSession.GameIsOverException e) {
+            game = new GameSession("tinkoff");
+        } catch (GameIsOverException e) {
             fail("Invalid word");
         }
-        GameSession.Player player = new GameSession.Player();
+        Player player = new Player();
 
         ByteArrayInputStream inputStream = new ByteArrayInputStream(simulatedInput.getBytes());
         System.setIn(inputStream);

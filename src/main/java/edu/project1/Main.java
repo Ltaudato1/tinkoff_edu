@@ -1,5 +1,6 @@
 package edu.project1;
 
+import edu.project1.Game.GameIsOverException;
 import edu.project1.Game.GameSession;
 
 public final class Main {
@@ -10,8 +11,9 @@ public final class Main {
     public static void main(String[] args) {
         while (true) {
             try {
-                GameSession.run();
-            } catch (GameSession.GameIsOverException e) {
+                GameSession game = new GameSession();
+                game.run();
+            } catch (GameIsOverException e) {
                 break;
             }
         }
