@@ -36,5 +36,5 @@ public class Task5 {
         }
     }
 
-    public static record Contact(String fullName) { }
+    public record Contact(String fullName) { }
 }
