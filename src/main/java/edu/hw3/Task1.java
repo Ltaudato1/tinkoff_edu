@@ -22,17 +22,12 @@ public class Task1 {
         HashMap<Character, Character> atbashMap = new HashMap<>();
 
         // Заполняем словарь
-        // Для верхнего регистра
         for (int i = 0; i < ENGLISH_ALPHABET_LENGTH; ++i) {
             Character key = Character.toChars(A_FOR_UPPERCASE + i)[0];
             Character value = Character.toChars(Z_FOR_UPPERCASE - i)[0];
             atbashMap.put(key, value);
-        }
-
-        // Для нижнего регистра
-        for (int i = 0; i < ENGLISH_ALPHABET_LENGTH; ++i) {
-            Character key = Character.toChars(A_FOR_LOWERCASE + i)[0];
-            Character value = Character.toChars(Z_FOR_LOWERCASE - i)[0];
+            key = Character.toChars(A_FOR_LOWERCASE + i)[0];
+            value = Character.toChars(Z_FOR_LOWERCASE - i)[0];
             atbashMap.put(key, value);
         }
 

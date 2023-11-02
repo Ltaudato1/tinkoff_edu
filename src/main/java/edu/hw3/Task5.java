@@ -2,58 +2,37 @@ package edu.hw3;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.Comparator;
+import java.util.List;
 
 public class Task5 {
     private Task5() {
 
     }
 
-    public static ArrayList<Contact> parseContacts(ArrayList<String> input, String type) {
+    public static List<Contact> parseContacts(List<String> input, String type) {
         if (input == null) {
             return null;
         }
-        LinkedHashMap<String, Object> map = new LinkedHashMap<>(); // Фамилия -> Имя Фамилия
+        List<Contact> result = new ArrayList<>();
         for (String fullName : input) {
-            String[] nameSurname = fullName.split(" ");
-            if (nameSurname.length == 2) {
-                map.put(nameSurname[1], fullName);
-            } else {
-                map.put(nameSurname[0], fullName);
-            }
+            result.add(new Contact(fullName));
         }
-        map = sortMapByKey(map, type);
-
-        ArrayList<Contact> result = new ArrayList<>();
-        for (Object fullName : map.values()) {
-            result.add(new Contact((String) fullName));
+        result.sort(new ContactComparator());
+        if (type.equals("DESC")) {
+            Collections.reverse(result);
         }
         return result;
     }
 
-    public static LinkedHashMap<String, Object> sortMapByKey(LinkedHashMap<String, Object> unsortedMap, String type) {
-        if (type.equals("ASC")) {
-            return unsortedMap.entrySet()
-                .stream()
-                .sorted(Map.Entry.comparingByKey())
-                .collect(Collectors.toMap(
-                    Map.Entry::getKey,
-                    Map.Entry::getValue,
-                    (e1, e2) -> e1,
-                    LinkedHashMap::new
-                ));
-        } else {
-            return unsortedMap.entrySet()
-                .stream()
-                .sorted(Collections.reverseOrder(Map.Entry.comparingByKey()))
-                .collect(Collectors.toMap(
-                    Map.Entry::getKey,
-                    Map.Entry::getValue,
-                    (e1, e2) -> e1,
-                    LinkedHashMap::new
-                ));
+    private static class ContactComparator implements Comparator<Contact> {
+        @Override
+        public int compare(Contact o1, Contact o2) {
+            String[] nameSurname1 = o1.fullName().split(" ");
+            String[] nameSurname2 = o2.fullName().split(" ");
+            String surname1 = (nameSurname1.length == 2) ? nameSurname1[1] : nameSurname1[0];
+            String surname2 = (nameSurname2.length == 2) ? nameSurname2[1] : nameSurname2[0];
+            return surname1.compareTo(surname2);
         }
     }
 

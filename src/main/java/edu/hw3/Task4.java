@@ -10,35 +10,35 @@ public class Task4 {
 
     }
 
-    private static final int I = 1;
-    private static final int IV = 4;
-    private static final int V = 5;
-    private static final int IX = 9;
-    private static final int X = 10;
-    private static final int XL = 40;
-    private static final int L = 50;
-    private static final int XC = 90;
-    private static final int C = 100;
-    private static final int CD = 400;
-    private static final int D = 500;
-    private static final int CM = 900;
-    private static final int M = 1000;
+    private static final int ONE = 1;
+    private static final int FOUR = 4;
+    private static final int FIVE = 5;
+    private static final int NINE = 9;
+    private static final int TEN = 10;
+    private static final int FORTY = 40;
+    private static final int FIFTY = 50;
+    private static final int NINETY = 90;
+    private static final int HUNDRED = 100;
+    private static final int FOUR_HUNDRED = 400;
+    private static final int FIVE_HUNDRED = 500;
+    private static final int NINE_HUNDRED = 900;
+    private static final int THOUSAND = 1000;
 
     public static String convertToRoman(Integer input) {
         HashMap<Integer, String> arabicToRoman = new HashMap<>(Map.ofEntries(
-            Map.entry(I, "I"),
-            Map.entry(IV, "IV"),
-            Map.entry(V, "V"),
-            Map.entry(IX, "IX"),
-            Map.entry(X, "X"),
-            Map.entry(XL, "XL"),
-            Map.entry(L, "L"),
-            Map.entry(XC, "XC"),
-            Map.entry(C, "C"),
-            Map.entry(CD, "CD"),
-            Map.entry(D, "D"),
-            Map.entry(CM, "CM"),
-            Map.entry(M, "M")
+            Map.entry(ONE, "I"),
+            Map.entry(FOUR, "IV"),
+            Map.entry(FIVE, "V"),
+            Map.entry(NINE, "IX"),
+            Map.entry(TEN, "X"),
+            Map.entry(FORTY, "XL"),
+            Map.entry(FIFTY, "L"),
+            Map.entry(NINETY, "XC"),
+            Map.entry(HUNDRED, "C"),
+            Map.entry(FOUR_HUNDRED, "CD"),
+            Map.entry(FIVE_HUNDRED, "D"),
+            Map.entry(NINE_HUNDRED, "CM"),
+            Map.entry(THOUSAND, "M")
         ));
 
         Integer num = input;

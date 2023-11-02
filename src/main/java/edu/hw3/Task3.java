@@ -14,11 +14,7 @@ public class Task3 {
             if (currentObject == null) {
                 throw new Exception("invalid input");
             }
-            if (!output.containsKey(currentObject)) {
-                output.put(currentObject, 1);
-            } else {
-                output.put(currentObject, output.get(currentObject) + 1);
-            }
+            output.merge(currentObject, 1, Integer::sum);
         }
         return output;
     }
