@@ -33,8 +33,8 @@ public class Test8 {
                 19,
                 Optional.of(new Animal("Bob", Animal.Type.SPIDER, Animal.Sex.M, 18, 12, 20, true))
             ),
-            Arguments.of(null, 10000, null),
-            Arguments.of(List.of(), 19, null)
+            Arguments.of(null, 10000, Optional.empty()),
+            Arguments.of(List.of(), 19, Optional.empty())
         );
     }
 

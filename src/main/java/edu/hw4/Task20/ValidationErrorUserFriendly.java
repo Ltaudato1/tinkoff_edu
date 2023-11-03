@@ -2,7 +2,7 @@ package edu.hw4.Task20;
 
 public record ValidationErrorUserFriendly(Type type) {
     public enum Type {
-        CAPITALIZATION_ERROR, INVALID_CHARACTERS_ERROR
+        INVALID_CHARACTERS_ERROR, CAPITALIZATION_ERROR
     }
 
     public String getStringError() {
