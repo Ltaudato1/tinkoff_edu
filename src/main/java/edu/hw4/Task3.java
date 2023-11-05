@@ -1,6 +1,6 @@
 package edu.hw4;
 
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -20,14 +20,10 @@ public class Task3 {
                 Animal::type,
                 e -> 1,
                 Integer::sum,
-                () -> new HashMap<>(Map.of(
-                    Animal.Type.DOG, 0,
-                    Animal.Type.BIRD, 0,
-                    Animal.Type.FISH, 0,
-                    Animal.Type.CAT, 0,
-                    Animal.Type.SPIDER, 0
-                ))
+                () -> new EnumMap<>(Animal.Type.class)
             ));
+
+
     }
 
 }

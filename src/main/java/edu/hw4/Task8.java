@@ -12,10 +12,8 @@ public class Task8 {
         if (input == null || input.isEmpty()) {
             return Optional.empty();
         }
-        Animal result = input.stream()
+        return input.stream()
             .filter(animal -> animal.height() < k)
-            .max((animal1, animal2) -> animal1.weight() - animal2.weight())
-            .get();
-        return Optional.of(result);
+            .max((animal1, animal2) -> animal1.weight() - animal2.weight());
     }
 }

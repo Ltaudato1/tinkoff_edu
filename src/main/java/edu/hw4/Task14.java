@@ -12,6 +12,6 @@ public class Task14 {
             return false;
         }
         return input.stream()
-            .anyMatch(animal -> animal.type() == Animal.Type.DOG && animal.height() > k);
+            .anyMatch(animal -> animal.type().equals(Animal.Type.DOG) && animal.height() > k);
     }
 }

@@ -11,9 +11,8 @@ public class Task12 {
         if (input == null) {
             return null;
         }
-        return input.stream()
+        return Math.toIntExact(input.stream()
             .filter(animal -> animal.weight() > animal.age())
-            .toList()
-            .size();
+            .count());
     }
 }

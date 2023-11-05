@@ -13,15 +13,7 @@ public class Task1 {
             return null;
         }
         return input.stream()
-            .sorted(new HeightComparator())
+            .sorted(Comparator.comparingInt(Animal::height))
             .toList();
-    }
-
-    private static class HeightComparator implements Comparator<Animal> {
-
-        @Override
-        public int compare(Animal o1, Animal o2) {
-            return Integer.compare(o1.height(), o2.height());
-        }
     }
 }

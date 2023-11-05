@@ -27,18 +27,11 @@ public class Test3 {
                 Map.entry(Animal.Type.CAT, 2),
                 Map.entry(Animal.Type.FISH, 3),
                 Map.entry(Animal.Type.DOG, 1),
-                Map.entry(Animal.Type.SPIDER, 1),
-                Map.entry(Animal.Type.BIRD, 0)
+                Map.entry(Animal.Type.SPIDER, 1)
             )),
             Arguments.of(null, null),
-            Arguments.of(List.of(), new HashMap<>(Map.ofEntries(
-                Map.entry(Animal.Type.DOG, 0),
-                Map.entry(Animal.Type.BIRD, 0),
-                Map.entry(Animal.Type.FISH, 0),
-                Map.entry(Animal.Type.CAT, 0),
-                Map.entry(Animal.Type.SPIDER, 0)
-            )))
-        );
+            Arguments.of(List.of(), new HashMap<>()
+        ));
     }
 
     @ParameterizedTest

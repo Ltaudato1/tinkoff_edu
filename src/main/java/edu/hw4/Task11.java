@@ -7,14 +7,14 @@ public class Task11 {
 
     }
 
-    private static final int CONDITION = 100;
+    private static final int MIN_HEIGHT_FOR_ANIMAL = 101;
 
     public static List<Animal> canBiteAndTall(List<Animal> input) {
         if (input == null) {
             return null;
         }
         return input.stream()
-            .filter(animal -> animal.bites() && animal.height() > CONDITION)
+            .filter(animal -> animal.bites() && animal.height() >= MIN_HEIGHT_FOR_ANIMAL)
             .toList();
     }
 }

@@ -12,10 +12,10 @@ public class Task2 {
         if (input == null) {
             return null;
         }
-        List<Animal> result = input.stream()
+        return input.stream()
             .sorted(new WeightComparator())
+            .limit(k)
             .toList();
-        return (k <= input.size()) ? result.subList(0, k) : result;
     }
 
     public static class WeightComparator implements Comparator<Animal> {

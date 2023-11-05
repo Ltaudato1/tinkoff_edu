@@ -14,29 +14,25 @@ public class Task17 {
 
         final int MINIMUM_TO_COMPARE = 3;
 
-        Integer spiders = input.stream()
-            .filter(animal -> animal.type() == Animal.Type.SPIDER)
-            .toList()
-            .size();
+        Integer spiders = Math.toIntExact(input.stream()
+            .filter(animal -> animal.type().equals(Animal.Type.SPIDER))
+            .count());
         if (spiders < MINIMUM_TO_COMPARE) {
             return false;
         }
-        Integer spidersThatBites = input.stream()
-            .filter(animal -> animal.type() == Animal.Type.SPIDER && animal.bites())
-            .toList()
-            .size();
+        Integer spidersThatBites = Math.toIntExact(input.stream()
+            .filter(animal -> animal.type().equals(Animal.Type.SPIDER) && animal.bites())
+            .count());
 
-        Integer dogs = input.stream()
-            .filter(animal -> animal.type() == Animal.Type.DOG)
-            .toList()
-            .size();
+        Integer dogs = Math.toIntExact(input.stream()
+            .filter(animal -> animal.type().equals(Animal.Type.DOG))
+            .count());
         if (dogs < MINIMUM_TO_COMPARE) {
             return false;
         }
-        Integer dogsThatBites = input.stream()
-            .filter(animal -> animal.type() == Animal.Type.DOG && animal.bites())
-            .toList()
-            .size();
+        Integer dogsThatBites = Math.toIntExact(input.stream()
+            .filter(animal -> animal.type().equals(Animal.Type.DOG) && animal.bites())
+            .count());
 
         return (spidersThatBites / spiders) > (dogsThatBites / dogs);
     }

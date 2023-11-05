@@ -12,8 +12,7 @@ public class Task9 {
             return null;
         }
         return input.stream()
-            .map(Animal::paws)
-            .mapToInt(Integer::intValue)
+            .mapToInt(Animal::paws)
             .sum();
     }
 }

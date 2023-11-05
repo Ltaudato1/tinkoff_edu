@@ -1,5 +1,6 @@
 package edu.hw4;
 
+import java.util.Comparator;
 import java.util.List;
 
 public class Task4 {
@@ -12,7 +13,7 @@ public class Task4 {
             return null;
         }
         return input.stream()
-            .max((animal1, animal2) -> animal1.name().length() - animal2.name().length())
+            .max(Comparator.comparingInt(Animal::height))
             .get();
     }
 }

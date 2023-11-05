@@ -28,19 +28,12 @@ public class Test6 {
                 new Animal("Patricia", Animal.Type.DOG, F, 10, 78, 12, true)
             ), new HashMap<>(Map.ofEntries(
                 Map.entry(Animal.Type.DOG, new Animal("Patricia", Animal.Type.DOG, F, 10, 78, 12, true)),
-                Map.entry(Animal.Type.BIRD, nullObject),
                 Map.entry(Animal.Type.FISH, new Animal("Freddy", Animal.Type.FISH, M, 100, 20, 25, false)),
                 Map.entry(Animal.Type.CAT, new Animal("Tolyan", Animal.Type.CAT, M, 12, 56, 11, true)),
                 Map.entry(Animal.Type.SPIDER, new Animal("Bob", Animal.Type.SPIDER, M, 18, 12, 21, true))
             ))),
             Arguments.of(null, null),
-            Arguments.of(List.of(), new HashMap<>(Map.ofEntries(
-                Map.entry(Animal.Type.DOG, nullObject),
-                Map.entry(Animal.Type.BIRD, nullObject),
-                Map.entry(Animal.Type.FISH, nullObject),
-                Map.entry(Animal.Type.CAT, nullObject),
-                Map.entry(Animal.Type.SPIDER, nullObject)
-            )))
+            Arguments.of(List.of(), new HashMap<>())
         );
     }
 
