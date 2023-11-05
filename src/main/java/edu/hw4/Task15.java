@@ -2,7 +2,6 @@ package edu.hw4;
 
 import edu.hw4.Animal.Type;
 import java.util.EnumMap;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
