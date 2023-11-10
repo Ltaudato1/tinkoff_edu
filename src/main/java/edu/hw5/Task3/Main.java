@@ -9,6 +9,10 @@ public class Main {
     }
 
     public static Optional<LocalDate> parseDate(String input) {
+        if (input == null) {
+            return Optional.empty();
+        }
+
         FormatterCommon formatterCommon = new FormatterCommon();
         FormatterDay formatterDay = new FormatterDay();
         FormatterDaysAgo formatterDaysAgo = new FormatterDaysAgo();
