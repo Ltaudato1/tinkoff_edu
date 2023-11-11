@@ -2,7 +2,6 @@ package edu.hw5;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.temporal.Temporal;
 import java.time.temporal.TemporalAdjuster;
 import java.time.temporal.TemporalAdjusters;
@@ -45,7 +44,7 @@ public class Task2 {
             LocalDate nextFriday13th = LocalDate.of(date.getYear(), date.getMonthValue(), date.getDayOfMonth())
                 .with(TemporalAdjusters.next(DayOfWeek.FRIDAY));
 
-            while (nextFriday13th.getDayOfMonth() != 13) {
+            while (nextFriday13th.getDayOfMonth() != FRIDAY_THIRTEENTH) {
                 nextFriday13th = LocalDate.of(nextFriday13th.getYear(),
                         nextFriday13th.getMonthValue(),
                         nextFriday13th.getDayOfMonth())
