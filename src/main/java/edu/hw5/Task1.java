@@ -8,7 +8,6 @@ import java.util.List;
 
 public class Task1 {
     private Task1() {
-
     }
 
     private static final int MINUTES_TO_HOURS_TRANSFER = 60;
@@ -19,27 +18,28 @@ public class Task1 {
         if (input == null || input.isEmpty()) {
             return null;
         }
-        long sumOfTime = 0L;
-        for (String string : input) {
-            String[] dates = string.split(" - ");
 
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd, HH:mm");
-            LocalDateTime timeIn;
-            LocalDateTime timeOut;
-            try {
-                timeIn = LocalDateTime.parse(dates[INDEX_OF_START_SESSION], formatter);
-                timeOut = LocalDateTime.parse(dates[INDEX_OF_END_SESSION], formatter);
-            } catch (DateTimeParseException e) {
-                return "Error!";
-            }
+        long sumOfTime = input.stream()
+            .map(string -> string.split(" - "))
+            .map(dates -> {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd, HH:mm");
+                try {
+                    LocalDateTime timeIn = LocalDateTime.parse(dates[INDEX_OF_START_SESSION], formatter);
+                    LocalDateTime timeOut = LocalDateTime.parse(dates[INDEX_OF_END_SESSION], formatter);
+                    return Duration.between(timeIn, timeOut).toMinutes();
+                } catch (DateTimeParseException e) {
+                    return 0L;
+                }
+            })
+            .reduce(Long::sum)
+            .orElse(0L);
 
-            Duration duration = Duration.between(timeIn, timeOut);
-            sumOfTime += duration.toMinutes();
+        Duration averageDuration = Duration.ofMinutes(sumOfTime).dividedBy(input.size());
+        if (averageDuration.isZero()) {
+            return "Error!";
         }
-        int average = Math.round((float) sumOfTime / input.size());
-        return (Integer.toString(average / MINUTES_TO_HOURS_TRANSFER)
-            + "h "
-            + Integer.toString(average % MINUTES_TO_HOURS_TRANSFER)
-            + "m");
+
+        return String.format("%dh %dm", averageDuration.toHours(), averageDuration.toMinutesPart());
     }
 }
+

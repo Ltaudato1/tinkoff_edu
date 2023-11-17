@@ -11,9 +11,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class Test6 {
     static Stream<Arguments> provideData() {
         return Stream.of(
-            Arguments.of("achfdbaabgabcaabg", "abc", true),
+            Arguments.of("achfdbaabgcaabg", "abc", true),
             Arguments.of("Р670ММ123В777ОР77", "АА123ИГ67", false),
-            Arguments.of("abacaba", "abc", false),
+            Arguments.of("abacaba", "abc", true),
             Arguments.of(null, null, null)
         );
     }

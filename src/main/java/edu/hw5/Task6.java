@@ -11,7 +11,11 @@ public class Task6 {
         if (string == null || substring == null) {
             return null;
         }
-        Pattern pattern = Pattern.compile(substring);
+        StringBuilder patternBuilder = new StringBuilder();
+        for (char c : substring.toCharArray()) {
+            patternBuilder.append(Pattern.quote(String.valueOf(c))).append(".*");
+        }
+        Pattern pattern = Pattern.compile(patternBuilder.toString());
         return pattern.matcher(string).find();
     }
 }
