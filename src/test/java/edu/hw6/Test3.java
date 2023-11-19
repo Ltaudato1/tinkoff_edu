@@ -1,4 +1,4 @@
-package edu.hw6.Test3;
+package edu.hw6;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -11,15 +11,13 @@ import static edu.hw6.Task3.AbstractFilter.largerThan;
 import static edu.hw6.Task3.AbstractFilter.magicNumber;
 import static edu.hw6.Task3.AbstractFilter.readable;
 import static edu.hw6.Task3.AbstractFilter.regexContains;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class Test3 {
     @Test
     @DisplayName("sample test")
     void test() throws IOException {
-        String dir = "C:\\Users\\Александр\\Desktop\\репозиторий java\\tinkoff_edu\\src\\test\\java\\edu\\hw6\\Test3";
+        String dir = "src/test/java/edu/hw6/Test3";
         DirectoryStream.Filter<Path> filter = readable()
             .and(largerThan(10))
             .and(magicNumber(0xEF, 0xBB, 0xBF))

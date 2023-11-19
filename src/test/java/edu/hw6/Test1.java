@@ -1,4 +1,4 @@
-package edu.hw6.Test1;
+package edu.hw6;
 
 import edu.hw6.Task1.DiskMap;
 import org.junit.jupiter.api.DisplayName;
@@ -14,10 +14,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class Test1 {
 
+    String dir = "src/test/java/edu/hw6/Test1";
+
     @Test
     @DisplayName("test for correct writing")
     void test() throws IOException {
-        String dir = "C:\\Users\\Александр\\Desktop\\репозиторий java\\tinkoff_edu\\src\\test\\java\\edu\\hw6\\Test1";
         DiskMap diskMap1 = new DiskMap(
             Paths.get(dir, "input.txt").toString(),
             Paths.get(dir, "output.txt").toString()
@@ -43,7 +44,6 @@ public class Test1 {
     @MethodSource("provideData")
     @DisplayName("test for correct reading")
     void testReading(Map<String, String> answer) throws IOException {
-        String dir = "C:\\Users\\Александр\\Desktop\\репозиторий java\\tinkoff_edu\\src\\test\\java\\edu\\hw6\\Test1";
         DiskMap diskMap = new DiskMap(
             Paths.get(dir, "input.txt").toString(),
             Paths.get(dir, "output.txt").toString()

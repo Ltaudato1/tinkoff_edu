@@ -1,4 +1,4 @@
-package edu.hw6.Test2;
+package edu.hw6;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -12,7 +12,7 @@ public class Test2 {
     @Test
     @DisplayName("Sample test")
     void test() throws IOException {
-        String dir = "C:\\Users\\Александр\\Desktop\\репозиторий java\\tinkoff_edu\\src\\test\\java\\edu\\hw6\\Test2";
+        String dir = "src/test/java/edu/hw6/Test2";
         String name = "The_Real_Tinkoff_Bank_Biggest_Secret";
         for (int i = 0; i < 4; ++i) {
             cloneFile(Paths.get(dir, (name + ".txt")));
