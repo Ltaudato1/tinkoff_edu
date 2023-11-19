@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class Test20 {
     static Stream<Arguments> provideData() {
-        String testString = "Name must start with upper case\nName must contain only english characters, spaces and -\n";
+        String testString = "Name must contain only english characters, spaces and -\nName must start with upper case\n";
         return Stream.of(
             Arguments.of(
                 List.of(
