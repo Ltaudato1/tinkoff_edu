@@ -8,7 +8,7 @@ import java.nio.file.Paths;
 import static edu.hw6.Task2.cloneFile;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public class Main {
+public class Test2 {
     @Test
     @DisplayName("Sample test")
     void test() throws IOException {

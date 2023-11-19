@@ -11,7 +11,7 @@ import java.nio.file.Paths;
 import static edu.hw6.Task4.writeInFile;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class Main {
+public class Test4 {
     @Test
     @DisplayName("sample test")
     void test() throws IOException {

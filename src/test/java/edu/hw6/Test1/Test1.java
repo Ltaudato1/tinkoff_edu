@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class Main {
+public class Test1 {
 
     @Test
     @DisplayName("test for correct writing")

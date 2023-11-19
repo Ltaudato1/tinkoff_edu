@@ -11,12 +11,11 @@ import static edu.hw6.Task3.AbstractFilter.largerThan;
 import static edu.hw6.Task3.AbstractFilter.magicNumber;
 import static edu.hw6.Task3.AbstractFilter.readable;
 import static edu.hw6.Task3.AbstractFilter.regexContains;
-import static org.assertj.core.api.FactoryBasedNavigableListAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class Main {
+public class Test3 {
     @Test
     @DisplayName("sample test")
     void test() throws IOException {
@@ -25,7 +24,7 @@ public class Main {
             .and(largerThan(10))
             .and(magicNumber(0xEF, 0xBB, 0xBF))
             .and(globMatches(".*.txt"))
-            .and(regexContains("ab"));
+            .and(regexContains("abac"));
 
         try (DirectoryStream<Path> entries = Files.newDirectoryStream(Path.of(dir), filter)) {
             assertFalse(entries.iterator().hasNext());
