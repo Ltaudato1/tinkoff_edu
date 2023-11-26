@@ -27,9 +27,7 @@ public class Test3 {
         String filePath = dir + "\\file_with_bom.txt";
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
-            // Добавляем магическое число для UTF-8
             writer.write("\uFEFF");
-            // Записываем контент файла
             writer.write("THIS FILE WILL PASS THE TEST abac");
         } catch (IOException e) {
             e.printStackTrace();

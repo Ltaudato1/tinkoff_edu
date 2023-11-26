@@ -13,7 +13,7 @@ public class Task2 {
 
     public static void cloneFile(Path path) throws IOException {
         String fileName = path.toString().substring(0, path.toString().lastIndexOf('.'));
-        String fileExtension = path.toString().substring(fileName.lastIndexOf('.'));
+        String fileExtension = path.toString().substring(path.toString().lastIndexOf('.'));
         int i = 0;
         String currentFileName = fileName;
         while (new File(currentFileName + fileExtension).exists()) {
