@@ -40,7 +40,7 @@ public class Test3 {
             .and(globMatches(".*.txt"))
             .and(regexContains("file_with_bom"));
 
-        try (DirectoryStream<Path> entries = Files.newDirectoryStream(Path.of(dir), filter)) {
+        try (DirectoryStream<Path> entries = Files.newDirectoryStream(Path.of("src/test/java/edu/hw6/test3"), filter)) {
             for (Path path : entries) {
                 assertEquals(path.toString(), dir + "\\file_with_bom.txt");
             }
