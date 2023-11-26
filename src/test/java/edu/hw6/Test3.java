@@ -21,10 +21,10 @@ public class Test3 {
     @Test
     @DisplayName("sample test")
     void test() throws IOException {
-        String dir = "src\\test\\java\\edu\\hw6\\test3";
+        String dir = "src/test/java/edu/hw6/test3";
 
         // создадим файл который должен проходить тест
-        String filePath = dir + "\\file_with_bom.txt";
+        String filePath = dir + "/file_with_bom.txt";
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             writer.write("\uFEFF");
@@ -40,9 +40,9 @@ public class Test3 {
             .and(globMatches(".*.txt"))
             .and(regexContains("file_with_bom"));
 
-        try (DirectoryStream<Path> entries = Files.newDirectoryStream(Path.of("src/test/java/edu/hw6/test3"), filter)) {
+        try (DirectoryStream<Path> entries = Files.newDirectoryStream(Path.of(dir), filter)) {
             for (Path path : entries) {
-                assertEquals(path.toString(), dir + "\\file_with_bom.txt");
+                assertEquals(path.toString(), filePath);
             }
         }
     }
