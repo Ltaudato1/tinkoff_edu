@@ -15,7 +15,7 @@ public class Test4 {
     @Test
     @DisplayName("sample test")
     void test() throws IOException {
-        Path path = Paths.get("src/test/java/edu/hw6/Test4/output.txt");
+        Path path = Paths.get("src/test/java/edu/hw6/test4/output.txt");
         writeInFile(path);
         File file = new File(path.toString());
         try(BufferedReader reader = new BufferedReader(new FileReader(file))) {

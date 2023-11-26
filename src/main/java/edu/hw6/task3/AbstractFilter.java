@@ -1,4 +1,4 @@
-package edu.hw6.Task3;
+package edu.hw6.task3;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -8,7 +8,6 @@ import java.nio.file.Path;
 
 @FunctionalInterface
 public interface AbstractFilter extends DirectoryStream.Filter<Path> {
-    boolean accept(Path entry);
 
     default AbstractFilter and(AbstractFilter other) {
         return entry -> accept(entry) && other.accept(entry);

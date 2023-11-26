@@ -8,10 +8,12 @@ import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class HackerNews {
-    private HackerNews() {
+public class Task5 {
+    private Task5() {
 
     }
+
+    private static final Pattern PATTERN = Pattern.compile("\"title\"\\s*:\\s*\"([^\"]+)\"");
 
     public static long[] hackerNewsTopStories() {
         try {
@@ -25,17 +27,16 @@ public class HackerNews {
             HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
 
             String[] idStrings = response.body().replaceAll("[\\[\\]\"]", "").split(",");
-            long[] ids = Arrays.stream(idStrings)
+
+            return Arrays.stream(idStrings)
                 .mapToLong(Long::parseLong)
                 .toArray();
-
-            return ids;
         } catch (Exception e) {
             return new long[]{};
         }
     }
 
-    public static String news(long storyId) {
+    public static String news(long storyId) throws Exception {
         HttpClient httpClient = HttpClient.newHttpClient();
         HttpRequest httpRequest = HttpRequest.newBuilder()
             .uri(URI.create("https://hacker-news.firebaseio.com/v0/item/" + storyId + ".json"))
@@ -46,8 +47,7 @@ public class HackerNews {
             HttpResponse<String> response = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
 
             String json = response.body();
-            Pattern pattern = Pattern.compile("\"title\"\\s*:\\s*\"([^\"]+)\"");
-            Matcher matcher = pattern.matcher(json);
+            Matcher matcher = PATTERN.matcher(json);
 
             if (matcher.find()) {
                 return matcher.group(1);
@@ -55,7 +55,7 @@ public class HackerNews {
                 return "Title not found";
             }
         } catch (Exception e) {
-            return "Error";
+            throw new Exception("Failed to write news titles");
         }
     }
 }

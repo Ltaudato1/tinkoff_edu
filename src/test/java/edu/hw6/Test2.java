@@ -12,7 +12,7 @@ public class Test2 {
     @Test
     @DisplayName("Sample test")
     void test() throws IOException {
-        String dir = "src/test/java/edu/hw6/Test2";
+        String dir = "src/test/java/edu/hw6/test2";
         String name = "The_Real_Tinkoff_Bank_Biggest_Secret";
         for (int i = 0; i < 4; ++i) {
             cloneFile(Paths.get(dir, (name + ".txt")));

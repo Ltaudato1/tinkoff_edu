@@ -12,9 +12,8 @@ public class Task2 {
     }
 
     public static void cloneFile(Path path) throws IOException {
-        String fileName = path.toString();
-        String fileExtension = fileName.substring(fileName.lastIndexOf('.'));
-        fileName = fileName.substring(0, fileName.lastIndexOf("."));
+        String fileName = path.toString().substring(0, path.toString().lastIndexOf('.'));
+        String fileExtension = path.toString().substring(fileName.lastIndexOf('.'));
         int i = 0;
         String currentFileName = fileName;
         while (new File(currentFileName + fileExtension).exists()) {
@@ -23,7 +22,7 @@ public class Task2 {
                 currentFileName = fileName + " - копия";
                 ++i;
             } else {
-                currentFileName = fileName + " - копия (" + Integer.toString(++i) + ")";
+                currentFileName = fileName + " - копия (" + ++i + ")";
             }
         }
         File file = new File(currentFileName + fileExtension);

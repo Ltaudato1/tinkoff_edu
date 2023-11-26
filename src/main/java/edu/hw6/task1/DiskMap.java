@@ -1,4 +1,4 @@
-package edu.hw6.Task1;
+package edu.hw6.task1;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -11,6 +11,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import org.jetbrains.annotations.NotNull;
 
 public class DiskMap implements Map<String, String>, Serializable {
     @Serial private static final long serialVersionUID = 1L;
@@ -20,14 +21,14 @@ public class DiskMap implements Map<String, String>, Serializable {
     private static final int KEY_INDEX = 0;
     private static final int VALUE_INDEX = 1;
 
-    public DiskMap(String inputFilePath, String outputFilePath) {
+    public DiskMap(String inputFilePath, String outputFilePath) throws IOException {
         this.outputFilePath = outputFilePath;
         this.inMemoryMap = new HashMap<>();
         this.inputFilePath = inputFilePath;
         loadFromDisk();
     }
 
-    private void loadFromDisk() {
+    private void loadFromDisk() throws IOException {
         try (BufferedReader reader = new BufferedReader(new FileReader(inputFilePath))) {
             String line = reader.readLine();
             while (line != null) {
@@ -36,17 +37,17 @@ public class DiskMap implements Map<String, String>, Serializable {
                 line = reader.readLine();
             }
         } catch (IOException e) {
-            return;
+            throw new IOException("Failed to read info from disk", e);
         }
     }
 
-    public void saveToDisk() {
+    public void saveToDisk() throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputFilePath))) {
-            for (String key : inMemoryMap.keySet()) {
-                writer.write(key + ":" + inMemoryMap.get(key) + "\n");
+            for (Entry<String, String> key : inMemoryMap.entrySet()) {
+                writer.write(key.getKey() + ":" + key.getValue() + "\n");
             }
         } catch (IOException e) {
-            return;
+            throw new IOException("Failed to save to disk", e);
         }
     }
 
@@ -78,41 +79,57 @@ public class DiskMap implements Map<String, String>, Serializable {
     @Override
     public String put(String key, String value) {
         String result = inMemoryMap.put(key, value);
-        saveToDisk();
+        try {
+            saveToDisk();
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to put info in map", e);
+        }
         return result;
     }
 
     @Override
     public String remove(Object key) {
         String result = inMemoryMap.remove(key);
-        saveToDisk();
+        try {
+            saveToDisk();
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to remove info from map", e);
+        }
         return result;
     }
 
     @Override
-    public void putAll(Map<? extends String, ? extends String> m) {
+    public void putAll(@NotNull Map<? extends String, ? extends String> m) {
         inMemoryMap.putAll(m);
-        saveToDisk();
+        try {
+            saveToDisk();
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to rewrite the map", e);
+        }
     }
 
     @Override
     public void clear() {
         inMemoryMap.clear();
-        saveToDisk();
+        try {
+            saveToDisk();
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to clear the map", e);
+        }
     }
 
     @Override
-    public Set<String> keySet() {
+    public @NotNull Set<String> keySet() {
         return inMemoryMap.keySet();
     }
 
     @Override
-    public Set<Entry<String, String>> entrySet() {
+    public @NotNull Set<Entry<String, String>> entrySet() {
         return inMemoryMap.entrySet();
     }
 
     @Override
-    public Collection<String> values() {
+    public @NotNull Collection<String> values() {
         return inMemoryMap.values();
     }
 
