@@ -3,6 +3,10 @@ package edu.hw7;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Task1 {
+    private Task1() {
+
+    }
+
     private static final int NUM_THREADS = 4;
 
     public static int parallelIncrement(int num) throws InterruptedException {

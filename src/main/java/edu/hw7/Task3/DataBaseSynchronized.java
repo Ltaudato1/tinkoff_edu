@@ -63,7 +63,7 @@ public class DataBaseSynchronized implements PersonDataBase {
     }
 
     private void removeFromMap(Map<String, Set<Integer>> map, String key, int id) {
-        map.computeIfPresent(key, (k, ids) ->{
+        map.computeIfPresent(key, (k, ids) -> {
            ids.remove(id);
            if (ids.isEmpty()) {
                return null;
