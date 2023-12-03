@@ -7,7 +7,6 @@ import java.io.InputStream;
 import java.io.PrintStream;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Fail.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -34,9 +33,9 @@ public class Test1 {
 
             serverThread.start();
 
-            Thread.sleep(5000);
+            Thread.sleep(1000);
 
-            String serverResponse = sendRequestAndGetResponse("localhost", 10, "личности");
+            String serverResponse = sendRequestAndGetResponse("localhost", 0, "личности");
 
             assertEquals("Не переходи на личности там, где их нет", serverResponse);
 
@@ -65,9 +64,7 @@ public class Test1 {
             return byteArrayOutputStream.toString(StandardCharsets.UTF_8);
 
         } catch (Exception e) {
-            e.printStackTrace();
             return null;
         }
     }
-
 }
