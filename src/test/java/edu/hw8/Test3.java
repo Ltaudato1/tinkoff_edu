@@ -29,7 +29,7 @@ public class Test3 {
     }
 
     @Test
-    void MultipleThreadTest() {
+    void multipleThreadTest() {
         long startTime = currentTimeMillis();
         for (String key : hashes.keySet()) {
             String password = multipleThreadBruteForce(hashes.get(key));

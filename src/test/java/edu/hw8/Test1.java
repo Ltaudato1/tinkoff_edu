@@ -34,7 +34,7 @@ public class Test1 {
 
             serverThread.start();
 
-            Thread.sleep(1000);
+            Thread.sleep(5000);
 
             String serverResponse = sendRequestAndGetResponse("localhost", 10, "личности");
 
