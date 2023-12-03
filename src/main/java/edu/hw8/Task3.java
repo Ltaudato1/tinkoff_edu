@@ -3,12 +3,13 @@ package edu.hw8;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 import static java.lang.Math.pow;
 
 public class Task3 {
@@ -20,51 +21,65 @@ public class Task3 {
     private static final int PASSWORD_LENGTH = 4;
     private static final String HASH_ALGORITHM_NAME = "MD5";
 
-    public static String singleThreadBruteForce(String targetHash) {
-        for (int i = 0; i < pow(PASSWORD_ALPHABET_LENGTH, PASSWORD_LENGTH); ++i) {
-            final String password = intToPassword(i);
-            String currentHash = calcMD5(password);
-            if (currentHash.equals(targetHash)) {
-                return password;
-            }
-        }
-        return null;
+    public static Map<String, String> singleThreadBruteForce(Map<String, String> targetHashes) {
+        Map<String, String> passwords = new HashMap<>();
+        bruteForceInRange(targetHashes, 0, (int) pow(PASSWORD_ALPHABET_LENGTH, PASSWORD_LENGTH), passwords);
+        return passwords;
     }
 
-    public static String multipleThreadBruteForce(String targetHash) {
-        final int NUM_THREADS = 4;
+    private static final int NUM_THREADS = 4;
+    private static final ExecutorService EXECUTOR_SERVICE = Executors.newFixedThreadPool(NUM_THREADS);
 
-        ExecutorService executorService = Executors.newFixedThreadPool(NUM_THREADS);
-
-        List<Future<String>> futures = new ArrayList<>();
-
-        for (int i = 0; i < pow(PASSWORD_ALPHABET_LENGTH, PASSWORD_LENGTH); ++i) {
-            final String currentPassword = intToPassword(i);
-
-           Callable<String> task = () -> {
-               if (calcMD5(currentPassword).equals(targetHash)) {
-                   return currentPassword;
-               }
-               return null;
-            };
-
-            Future<String> future = executorService.submit(task);
-            futures.add(future);
-        }
+    public static Map<String, String> multiThreadedBruteForce(Map<String, String> targetHashes) {
+        Map<String, String> passwords = new ConcurrentHashMap<>();
 
         try {
-            for (Future<String> future : futures) {
-                String result = future.get();
-                if (result != null) {
-                    return result;
+            int passwordSpaceSize = (int) Math.pow(PASSWORD_ALPHABET_LENGTH, PASSWORD_LENGTH);
+            int batchSize = passwordSpaceSize / NUM_THREADS;
+
+            List<Callable<Void>> tasks = new ArrayList<>();
+
+            for (int i = 0; i < NUM_THREADS; i++) {
+                final int startIndex = i * batchSize;
+                final int endIndex = (i + 1 == NUM_THREADS) ? passwordSpaceSize : (i + 1) * batchSize;
+
+                tasks.add(() -> {
+                    bruteForceInRange(targetHashes, startIndex, endIndex, passwords);
+                    return null;
+                });
+            }
+
+            EXECUTOR_SERVICE.invokeAll(tasks);
+
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        } finally {
+            EXECUTOR_SERVICE.shutdown();
+        }
+
+        return passwords;
+    }
+
+    private static void bruteForceInRange(
+        Map<String, String> targetHashes, int start, int end, Map<String, String> passwords
+    ) {
+        for (int i = start; i < end; i++) {
+            final String password = intToPassword(i);
+            String currentHash = calcMD5(password);
+            if (targetHashes.containsValue(currentHash)) {
+                String key = targetHashes
+                    .entrySet()
+                    .stream()
+                    .filter(entry -> currentHash.equals(entry.getValue()))
+                    .map(Map.Entry::getKey)
+                    .findFirst()
+                    .orElse(null);
+
+                if (key != null) {
+                    passwords.put(key, password);
                 }
             }
-        } catch (InterruptedException | ExecutionException e) {
-            throw new RuntimeException("Failed to get a password");
-        } finally {
-            executorService.shutdown();
         }
-        return null;
     }
 
     public static String calcMD5(String input) {
