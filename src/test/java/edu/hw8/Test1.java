@@ -35,7 +35,7 @@ public class Test1 {
 
             Thread.sleep(1000);
 
-            String serverResponse = sendRequestAndGetResponse("127.0.0.1", 10, "личности");
+            String serverResponse = sendRequestAndGetResponse("127.0.0.1", 8080, "личности");
 
             assertEquals("Не переходи на личности там, где их нет", serverResponse);
 
@@ -64,7 +64,9 @@ public class Test1 {
             return byteArrayOutputStream.toString(StandardCharsets.UTF_8);
 
         } catch (Exception e) {
+            e.printStackTrace();
             return null;
         }
     }
+
 }
