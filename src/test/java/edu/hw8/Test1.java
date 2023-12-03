@@ -35,7 +35,7 @@ public class Test1 {
 
             Thread.sleep(1000);
 
-            String serverResponse = sendRequestAndGetResponse("localhost", 0, "личности");
+            String serverResponse = sendRequestAndGetResponse("127.0.0.1", 10, "личности");
 
             assertEquals("Не переходи на личности там, где их нет", serverResponse);
 
