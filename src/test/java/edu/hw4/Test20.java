@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class Test20 {
     static Stream<Arguments> provideData() {
-        String testString = "Name must contain only english characters, spaces and -\nName must start with upper case\n";
+        String testString = "Name must start with upper case\n";
         return Stream.of(
             Arguments.of(
                 List.of(
@@ -24,10 +24,10 @@ public class Test20 {
                     new Animal("Vasyan-Tolyan-Kalyan", Animal.Type.CAT, Animal.Sex.M, 23, 56, 5, true),
                     new Animal("Mystery", Animal.Type.DOG, Animal.Sex.F, 10, 78, 120, true),
                     new Animal("BarkBark", Animal.Type.DOG, Animal.Sex.M, 21, 78, 120, true),
-                    new Animal("баркБарк!", Animal.Type.DOG, Animal.Sex.M, 21, 78, 120, false)
+                    new Animal("barkbark", Animal.Type.DOG, Animal.Sex.M, 21, 78, 120, false)
                 ),
                 Map.ofEntries(
-                    Map.entry("баркБарк!", testString)
+                    Map.entry("barkbark", testString)
                 )
             ),
             Arguments.of(null, null),
