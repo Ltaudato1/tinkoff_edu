@@ -22,18 +22,24 @@ public class FractalFlameGenMultipleThread {
     private static final double XMAX = 1.777;
     private static final double YMIN = -1;
     private static final double YMAX = 1;
-    private static final double GAMMA = 1;
+    private static final double GAMMA = 2.2;
 
     private final int fractals;
     private final int pixelsNum;
     private final int eqCount;
 
     Pixel[][] pixels = new Pixel[WIDTH][HEIGHT];
+    AffineTransformation[] transformations;
 
     public FractalFlameGenMultipleThread(int fractals, int pixelsNum, int eqCount) {
         this.fractals = fractals;
         this.pixelsNum = pixelsNum;
         this.eqCount = eqCount;
+
+        transformations = new AffineTransformation[eqCount];
+        for (int i = 0; i < eqCount; ++i) {
+            transformations[i] = getRandomTransformation();
+        }
 
         for (int i = 0; i < WIDTH; ++i) {
             for (int j = 0; j < HEIGHT; ++j) {
@@ -93,11 +99,7 @@ public class FractalFlameGenMultipleThread {
     }
 
     private void renderFractal() {
-        AffineTransformation[] transformations = new AffineTransformation[eqCount];
         Random random = new Random();
-        for (int i = 0; i < eqCount; ++i) {
-            transformations[i] = getRandomTransformation(random);
-        }
 
         double newX = random.nextDouble(XMIN, XMAX);
         double newY = random.nextDouble(YMIN, YMAX);
@@ -187,7 +189,8 @@ public class FractalFlameGenMultipleThread {
     }
 
     @SuppressWarnings("MagicNumber")
-    private AffineTransformation getRandomTransformation(Random random) {
+    private AffineTransformation getRandomTransformation() {
+        Random random = new Random();
         double a;
         double b;
         double d;
