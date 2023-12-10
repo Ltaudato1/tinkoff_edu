@@ -6,12 +6,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Random;
 import javax.imageio.ImageIO;
-import javax.swing.JFrame;
 import static java.lang.Math.log10;
 import static java.lang.Math.pow;
-import static java.lang.Math.tanh;
 
-public class FractalFlameGenSingleThread extends JFrame {
+public class FractalFlameGenSingleThread {
 
     private static final int WIDTH = 1920;
     private static final int HEIGHT = 1080;
@@ -45,10 +43,6 @@ public class FractalFlameGenSingleThread extends JFrame {
     }
 
     private void initUI() {
-        setTitle("Fractal Flame");
-        setSize(WIDTH, HEIGHT);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
 
         image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 

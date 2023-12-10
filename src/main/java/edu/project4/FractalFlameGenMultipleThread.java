@@ -9,11 +9,10 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import javax.imageio.ImageIO;
-import javax.swing.JFrame;
 import static java.lang.Math.log10;
 import static java.lang.Math.pow;
 
-public class FractalFlameGenMultipleThread extends JFrame {
+public class FractalFlameGenMultipleThread {
 
     private static final int WIDTH = 1920;
     private static final int HEIGHT = 1080;
@@ -46,10 +45,6 @@ public class FractalFlameGenMultipleThread extends JFrame {
     }
 
     private void initUI() {
-        setTitle("Fractal Flame");
-        setSize(WIDTH, HEIGHT);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
 
         BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 

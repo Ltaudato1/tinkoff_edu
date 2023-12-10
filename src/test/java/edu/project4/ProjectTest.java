@@ -15,6 +15,10 @@ public class ProjectTest {
         FractalFlameGenMultipleThread gen2 = new FractalFlameGenMultipleThread(100000, 2000, 20);
         long multipleThreadTime = currentTimeMillis() - startTime;
 
-        System.out.println("Многопоточный алгоритм быстрее в " + (1.0 * singleThreadTime / multipleThreadTime) + " раз");
+        if (multipleThreadTime < singleThreadTime) {
+            System.out.println("Многопоточный алгоритм быстрее в " + (1.0 * singleThreadTime / multipleThreadTime) + " раз");
+        } else {
+            fail("Многопоточный медленнее чем однопоточный");
+        }
     }
 }
