@@ -49,7 +49,7 @@ public class FractalFlameGenMultipleThread {
         BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 
         render();
-        //correction();
+        correction();
 
         for (int i = 0; i < WIDTH; ++i) {
             for (int j = 0; j < HEIGHT; ++j) {
