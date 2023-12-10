@@ -113,8 +113,8 @@ public class FractalFlameGenMultipleThread extends JFrame {
             double x = transformations[i].a * newX + transformations[i].b * newY + transformations[i].c;
             double y = transformations[i].d * newX + transformations[i].e * newY + transformations[i].f;
 
-            newX = Math.sin(x) / y;
-            newY = Math.sin(y) / x;
+            newX = 1 / y;
+            newY = 1 / x;
 
             if (step >= 0) {
                 int x1 = WIDTH - (int) (((XMAX - newX) / (XMAX - XMIN)) * WIDTH);
