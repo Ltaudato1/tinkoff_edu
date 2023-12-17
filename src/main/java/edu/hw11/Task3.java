@@ -1,10 +1,16 @@
 package edu.hw11;
 
-import org.objectweb.asm.*;
-
 import java.io.IOException;
+import net.bytebuddy.jar.asm.ClassWriter;
+import net.bytebuddy.jar.asm.Label;
+import net.bytebuddy.jar.asm.MethodVisitor;
+import net.bytebuddy.jar.asm.Opcodes;
 
+@SuppressWarnings("MultipleStringLiterals")
 public class Task3 {
+    private Task3() {
+
+    }
 
     // Код с asm сложно читаемый, так что комментарий дал к каждой строке
     public static byte[] generateFibFunction() throws IOException {
