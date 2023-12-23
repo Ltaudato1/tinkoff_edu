@@ -24,10 +24,10 @@ public class Test20 {
                     new Animal("Vasyan-Tolyan-Kalyan", Animal.Type.CAT, Animal.Sex.M, 23, 56, 5, true),
                     new Animal("Mystery", Animal.Type.DOG, Animal.Sex.F, 10, 78, 120, true),
                     new Animal("BarkBark", Animal.Type.DOG, Animal.Sex.M, 21, 78, 120, true),
-                    new Animal("barkbark", Animal.Type.DOG, Animal.Sex.M, 21, 78, 120, false)
+                    new Animal("barkBark", Animal.Type.DOG, Animal.Sex.M, 21, 78, 120, false)
                 ),
                 Map.ofEntries(
-                    Map.entry("barkbark", testString)
+                    Map.entry("barkBark", testString)
                 )
             ),
             Arguments.of(null, null),
