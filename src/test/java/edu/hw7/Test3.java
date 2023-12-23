@@ -60,6 +60,7 @@ public class Test3 {
     @Test
     @DisplayName("sample test (3)")
     void testMultithreadedAddAndFindByName2() throws InterruptedException {
+        final int RANDOM_VALUE_FOR_TEST = 1000;
         DataBaseSynchronized database = new DataBaseSynchronized();
 
         int numThreads = 4;
@@ -70,11 +71,11 @@ public class Test3 {
             int finalI = i;
             executorService.submit(() -> {
                 try {
-                    for (int j = 0; j < 1000; j++) {
-                        Person person = new Person((j + finalI * 1000),
-                            "Name" + (j + finalI * 1000),
-                            "Address" + (j + finalI * 1000),
-                            "Phone" + (j + finalI * 1000));
+                    for (int j = 0; j < RANDOM_VALUE_FOR_TEST; j++) {
+                        Person person = new Person((j + finalI * RANDOM_VALUE_FOR_TEST),
+                            "Name" + (j + finalI * RANDOM_VALUE_FOR_TEST),
+                            "Address" + (j + finalI * RANDOM_VALUE_FOR_TEST),
+                            "Phone" + (j + finalI * RANDOM_VALUE_FOR_TEST));
                         database.add(person);
                     }
                 } finally {
