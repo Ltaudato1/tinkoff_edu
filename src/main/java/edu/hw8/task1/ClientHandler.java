@@ -7,7 +7,6 @@ import java.net.Socket;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
-import java.util.concurrent.Semaphore;
 
 public class ClientHandler implements Runnable {
     private final Socket clientSocket;
