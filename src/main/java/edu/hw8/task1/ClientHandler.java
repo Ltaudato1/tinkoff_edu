@@ -11,7 +11,6 @@ import java.util.concurrent.Semaphore;
 
 public class ClientHandler implements Runnable {
     private final Socket clientSocket;
-    private final Semaphore semaphore;
     private static final int KB = 1024;
     List<String> quotes = List.of(
         "Не переходи на личности там, где их нет",
@@ -20,9 +19,8 @@ public class ClientHandler implements Runnable {
         "Чем ниже интеллект, тем громче оскорбления"
     );
 
-    public ClientHandler(Socket clientSocket, Semaphore semaphore) {
+    public ClientHandler(Socket clientSocket) {
         this.clientSocket = clientSocket;
-        this.semaphore = semaphore;
     }
 
     @Override
@@ -47,8 +45,6 @@ public class ClientHandler implements Runnable {
 
         } catch (IOException e) {
             throw new RuntimeException("Failed to process the request");
-        } finally {
-            semaphore.release();
         }
     }
 }
