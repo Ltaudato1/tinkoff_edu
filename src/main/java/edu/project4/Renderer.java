@@ -49,8 +49,8 @@ public class Renderer {
             double x = transformations[i].a() * newX + transformations[i].b() * newY + transformations[i].c();
             double y = transformations[i].d() * newX + transformations[i].e() * newY + transformations[i].f();
 
-            newX = 1 / y;
-            newY = 1 / x;
+            newX = Math.sin(x) / y;
+            newY = Math.sin(y) / x;
 
             if (step >= 0) {
                 int x1 = width - (int) (((XMAX - newX) / (XMAX - XMIN)) * width);
