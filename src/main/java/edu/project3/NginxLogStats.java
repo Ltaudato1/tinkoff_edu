@@ -13,11 +13,18 @@ import java.util.stream.Collectors;
 
 @SuppressWarnings("MultipleStringLiterals")
 public class NginxLogStats {
-    Map<String, Integer> statistics = new LinkedHashMap<>();
-    Map<String, Integer> codeStatistics = new LinkedHashMap<>();
+    Map<AverageStatistics, Integer> statistics = new LinkedHashMap<>();
+    Map<HttpStatusCodes, Integer> codeStatistics = new LinkedHashMap<>();
     Map<String, Integer> resourceStatistics = new LinkedHashMap<>();
     private static final LocalDateTime BASIC_TO_TIME = LocalDateTime.of(9999, 12, 31, 23, 59);
     private static final LocalDateTime BASIC_FROM_TIME = LocalDateTime.of(1, 1, 1, 0, 0);
+    private static final int INDEX_OF_DATE = 3;
+    private static final int INDEX_OF_BYTES = 8;
+    private static final int INDEX_OF_CODE = 9;
+    private static final int INDEX_OF_RESOURCE = 11;
+    private static final DateTimeFormatter LOG_ENTRY_FORMATTER =
+        DateTimeFormatter.ofPattern("dd/MMM/yyyy:HH:mm:ss", Locale.ENGLISH);
+    public String[] arguments; // для теста
 
     public NginxLogStats() {
 
@@ -52,16 +59,19 @@ public class NginxLogStats {
 
             processLogFile(Paths.get(logPath), from, to);
 
+            arguments = new String[]{logPath, from.toString(), to.toString(), format};
+
             statistics = statistics.entrySet().stream()
-                .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
+                .sorted(Map.Entry.<AverageStatistics, Integer>comparingByValue().reversed())
                 .collect(Collectors.toMap(
                     Map.Entry::getKey,
                     Map.Entry::getValue,
                     (e1, e2) -> e1,
                     LinkedHashMap::new
                 ));
+
             codeStatistics = codeStatistics.entrySet().stream()
-                .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
+                .sorted(Map.Entry.<HttpStatusCodes, Integer>comparingByValue().reversed())
                 .collect(Collectors.toMap(
                     Map.Entry::getKey,
                     Map.Entry::getValue,
@@ -85,23 +95,17 @@ public class NginxLogStats {
 
     private void displayStatistics(String format, String[] fileData) throws IOException {
         if (format.equals("markdown")) {
-            LogReporter.markdownPrint(Paths.get("src/test/java/edu/project3/output.md"),
-                statistics, "Общая информация", fileData);
-
-            LogReporter.markdownPrint(Paths.get("src/test/java/edu/project3/output.md"),
-                resourceStatistics, "Запрашиваемые ресурсы", fileData);
-
-            LogReporter.markdownPrint(Paths.get("src/test/java/edu/project3/output.md"),
-                codeStatistics, "Коды ответа", fileData);
+            LogReporter.markdownPrint(
+                Paths.get("src/test/java/edu/project3/output.md"),
+                new Stats(statistics, codeStatistics, resourceStatistics),
+                fileData
+            );
         } else {
-            LogReporter.adocPrint(Paths.get("src/test/java/edu/project3/output.adoc"),
-                statistics, "Общая информация", fileData);
-
-            LogReporter.adocPrint(Paths.get("src/test/java/edu/project3/output.adoc"),
-                resourceStatistics, "Запрашиваемые ресурсы", fileData);
-
-            LogReporter.adocPrint(Paths.get("src/test/java/edu/project3/output.adoc"),
-                codeStatistics, "Коды ответа", fileData);
+            LogReporter.adocPrint(
+                Paths.get("src/test/java/edu/project3/output.adoc"),
+                new Stats(statistics, codeStatistics, resourceStatistics),
+                fileData
+            );
         }
     }
 
@@ -117,37 +121,42 @@ public class NginxLogStats {
 
     // Обработка каждой строки по отдельности
     private void processLogEntry(String logEntry, LocalDateTime from, LocalDateTime to) {
-        final int INDEX_OF_DATE = 3;
-        final int INDEX_OF_BYTES = 8;
-        final int INDEX_OF_CODE = 9;
-        final int INDEX_OF_RESOURCE = 11;
-
-        final DateTimeFormatter logEntryFormatter = DateTimeFormatter.ofPattern("dd/MMM/yyyy:HH:mm:ss", Locale.ENGLISH);
         String[] logParts = logEntry.split(" ");
 
-        LocalDateTime dateTime = LocalDateTime.parse(logParts[INDEX_OF_DATE].substring(1), logEntryFormatter);
+        LocalDateTime dateTime = LocalDateTime.parse(logParts[INDEX_OF_DATE].substring(1), LOG_ENTRY_FORMATTER);
         if (dateTime.isBefore(from) || dateTime.isAfter(to)) {
             return;
         }
 
         // Общее количество строк
-        statistics.put("Total requests", statistics.getOrDefault("Total requests", 0) + 1);
+        statistics.put(
+            AverageStatistics.TOTAL_REQUESTS,
+            statistics.getOrDefault(AverageStatistics.TOTAL_REQUESTS, 0) + 1
+        );
 
         // Средний размер ответа
         int bytesSent = Integer.parseInt(logParts[INDEX_OF_BYTES]);
-        Integer averageBytes = ((statistics.getOrDefault("Average answer size", 0)
-            * (statistics.getOrDefault("Total requests", 1) - 1)) + bytesSent)
-            / statistics.getOrDefault("Total requests", 1);
+        Integer averageBytes = ((statistics.getOrDefault(AverageStatistics.AVERAGE_ANSWER_SIZE, 0)
+            * (statistics.getOrDefault(AverageStatistics.TOTAL_REQUESTS, 1) - 1)) + bytesSent)
+            / statistics.getOrDefault(AverageStatistics.TOTAL_REQUESTS, 1);
 
-        statistics.put("Average answer size", averageBytes);
+        statistics.put(AverageStatistics.AVERAGE_ANSWER_SIZE, averageBytes);
 
         // Вхождения разных кодов ответа
         String statusCode = logParts[INDEX_OF_CODE];
-        codeStatistics.put(statusCode, codeStatistics.getOrDefault(statusCode, 0) + 1);
+        codeStatistics.put(
+            HttpStatusCodes.getByCode(statusCode),
+            codeStatistics.getOrDefault(HttpStatusCodes.getByCode(statusCode), 0) + 1
+        );
 
         // Запрашиваемые ресурсы
         String request = logParts[INDEX_OF_RESOURCE].replaceAll("\"", "");
         resourceStatistics.put(request, resourceStatistics.getOrDefault(request, 0) + 1);
     }
 
+    @SuppressWarnings("UncommentedMain")
+    public static void main(String[] args) throws IOException {
+        NginxLogStats logStats = new NginxLogStats();
+        logStats.sendRequest(args);
+    }
 }
